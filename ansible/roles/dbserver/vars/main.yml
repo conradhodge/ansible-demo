@@ -1,0 +1,8 @@
+---
+packages:
+  - mysql-server
+  - mysql-client
+  - python-mysqldb
+
+databases:
+  - {name: "conski_wp", creates: "/var/lib/mysql/conski_wp/wp_posts.frm"}

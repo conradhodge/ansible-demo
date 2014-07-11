@@ -1,0 +1,19 @@
+---
+- name: Install packages
+  apt: name={{ item }} state=present
+  with_items: packages
+
+- name: Start Apache service
+  service: name=apache2 state=started enabled=true
+
+- name: Setup website configuration
+  template: src=vhost.conf dest=/etc/apache2/sites-available/wordpress.conf
+  notify:
+    - Restart Apache
+
+- name: Enable website
+  file: src=/etc/apache2/sites-available/wordpress.conf dest=/etc/apache2/sites-enabled/wordpress.conf state=link
+  notify:
+    - Restart Apache
+
+- include: wordpress.yml

@@ -1,0 +1,13 @@
+---
+packages:
+  - php5
+  - php5-cli
+  - php5-mysql
+  - php5-common
+  - apache2
+
+apache_vhosts:
+  - {url: "conski.wp", docroot: "/var/www/wordpress"}
+
+wordpress:
+  - {version: 3.9.1}

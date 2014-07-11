@@ -1,0 +1,15 @@
+---
+- name: Download Wordpress installation package
+  get_url: url=http://wordpress.org/wordpress-{{ item.version }}.tar.gz dest=/tmp/wordpress.tar.gz
+  with_items: wordpress
+
+- name: Unpack Wordpress
+  command: /bin/tar -xzf /tmp/wordpress.tar.gz -C /var/www creates=/var/www/wordpress/index.php
+
+- name: Copy wp-config.php file
+  copy: src=wp-config.php dest=/var/www/wordpress
+
+- name: Set ownership of website folder
+  file: dest=/var/www group=www-data owner=www-data recurse=yes
+  notify:
+    - Restart Apache
